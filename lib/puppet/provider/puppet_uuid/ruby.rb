@@ -49,6 +49,6 @@ Puppet::Type.type(:puppet_uuid).provide(:ruby) do
       agent['certname']=uuid
     end
     ini_file.store
-    info("set new certname '#{uuis}'")
+    info("set new certname '#{uuid}'")
   end
 end
