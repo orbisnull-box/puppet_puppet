@@ -1,6 +1,7 @@
 class orbisnull_puppet::client::config inherits orbisnull_puppet::client {
     include orbisnull_puppet::client::install
     include orbisnull_puppet::client::run
+
     ini_setting { "orbisnull_puppet::client_config_server":
       ensure  => present,
       path    => '/etc/puppetlabs/puppet/puppet.conf',
@@ -11,17 +12,8 @@ class orbisnull_puppet::client::config inherits orbisnull_puppet::client {
       notify => Class['orbisnull_puppet::client::run'],
     }
 
-    $uuid = generate('/bin/bash', '-c', '/bin/cat /proc/sys/kernel/random/uuid')
-    
-    ini_setting { "orbisnull_puppet::client_config_uuid":
+    puppet_uuid { "/etc/puppetlabs/puppet/puppet.conf":
       ensure  => present,
-      path    => '/etc/puppetlabs/puppet/puppet.conf',
-      section => 'agent',
-      setting => 'certname',
-      value   =>  $uuid,
-      subscribe => Class['orbisnull_puppet::client::install'],
-      refreshonly => true,
-      notify => Class['orbisnull_puppet::client::run'],
     }
 
     file { '/etc/puppetlabs/puppet/csr_attributes.yaml':
@@ -33,4 +25,3 @@ class orbisnull_puppet::client::config inherits orbisnull_puppet::client {
       notify => Class['orbisnull_puppet::client::run'],
     }
 }
-
