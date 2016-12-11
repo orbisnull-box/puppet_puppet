@@ -1,5 +1,5 @@
 class orbisnull_puppet::repository inherits orbisnull_puppet {
-  apt::source { 'puppet-source':
+  apt::source { 'puppetlabs-pc1':
   location => 'http://apt.puppetlabs.com',
   release  => 'jessie',
   repos    => 'PC1',
